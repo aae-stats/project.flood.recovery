@@ -168,6 +168,8 @@ flood_data_ba <- populate_recruit_data(flood_data_ba, catch.lw_cc)
 site.flood_impact <- read.csv("site_flood_impact.csv", header = TRUE)
 flood_data_ba <- inner_join(flood_data_ba, site.flood_impact, by = c('id_site'))
 
+flood_data_ba$hypoxia_rank <- ifelse(flood_data_ba$condition_rank == 'V', 'L', flood_data_ba$condition_rank)
+
 #Check that sites haven't been lost
 print(check_row_counts(nrow(site.list), nrow(flood_data_ba %>% group_by(id_site) %>% summarise()), "MISSING SITES IN THE IMPACT LIST" ))
 
