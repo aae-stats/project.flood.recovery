@@ -48,6 +48,7 @@ catchplot
 yoyplot<-flood_data_ba |> filter(scientific_name %in% c("Cyprinus carpio", "Maccullochella peelii")) |>
   ggplot(aes(y = yoy, x = hypoxia_rank, fill = before_after)) +
   geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
   theme_bw()+
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
   facet_wrap( ~ scientific_name, scales = "free")
@@ -59,6 +60,7 @@ plus1plot<-flood_data_ba |> filter(scientific_name %in% c("Cyprinus carpio", "Ma
   ggplot(aes(y = plus1, x = hypoxia_rank, fill = before_after)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap( ~ scientific_name, scales = "free")+
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
   theme_bw()+
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") 
 
@@ -71,7 +73,8 @@ plus1plot
 cpueboxplot<- ggplot(flood_data_ba, aes(scientific_name, cpue)) + 
   geom_boxplot() + 
   theme_bw() +
-  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
+  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right", 
+         axis.text.x = element_text(angle = 75, vjust = 0.55)) +
   facet_wrap(vars(waterbody), scales = "free")
 
 cpueboxplot
@@ -80,6 +83,7 @@ cpueboxplot
 
 cpuelogboxplot<-ggplot(flood_data_ba, aes(y=log_cpue_p1, x=hypoxia_rank, fill=before_after)) + 
   geom_boxplot() + 
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
   theme_bw() +
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
   facet_wrap(vars(waterbody), scales = "free")
