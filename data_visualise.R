@@ -11,7 +11,7 @@ cpueplot<-flood_data_ba |>
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap( ~ scientific_name, scales = "free")+
   scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
-  labs(x = "Hypoxia Rank", y = "Log cpue")+
+  labs(x = "Hypoxia Rank", y = "cpue")+
   theme_bw()+
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") 
   
@@ -42,11 +42,11 @@ catchplot<-flood_data_ba |>
 
 catchplot
 
-
+flood_data_ba$yoy_cpue <- flood_data_ba$yoy / flood_data_ba$effort_h
 
 #yoy of focus species carp and cod 
 yoyplot<-flood_data_ba |> filter(scientific_name %in% c("Cyprinus carpio", "Maccullochella peelii")) |>
-  ggplot(aes(y = yoy, x = hypoxia_rank, fill = before_after)) +
+  ggplot(aes(y = yoy_cpue , x = hypoxia_rank, fill = before_after)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
   theme_bw()+
