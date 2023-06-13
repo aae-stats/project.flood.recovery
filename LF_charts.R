@@ -75,4 +75,27 @@ lenfreqnew1<- flood_sample_data_try|>filter(hypoxia_rank %in% c("H", "M"), scien
 
 lenfreqnew1
 
+#just with blackfish, maccas, trout cod in low hypoxia 
+
+lenfreqnew2<- flood_sample_data_try|>filter(hypoxia_rank %in% c("L"), scientific_name %in% c("Gadopsis marmoratus", "Maccullochella macquariensis", "Macquaria australasica"))|>
+  ggplot(aes(x=length_mm))+
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend", labels=c('Before', 'After'))+
+  geom_histogram(aes(fill=before_after), binwidth=20, boundary=0, closed="left",color='black', position="dodge", alpha=1)+
+  # geom_density(aes(fill=before_after), alpha=0.7, lwd=0.8)+
+  theme_bw()+
+  facet_wrap(~scientific_name, scales= "free")
+
+lenfreqnew2
+
+#trout cod in high and medium hypoxia 
+lenfreqnew3<- flood_sample_data_try|>filter(hypoxia_rank %in% c("H", "L"), scientific_name %in% c("Maccullochella macquariensis"))|>
+  ggplot(aes(x=length_mm))+
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend", labels=c('Before', 'After'))+
+  geom_histogram(aes(fill=before_after), binwidth=20, boundary=0, closed="left",color='black', position="dodge", alpha=1)+
+  # geom_density(aes(fill=before_after), alpha=0.7, lwd=0.8)+
+  theme_bw()+
+  facet_wrap(~scientific_name, scales= "free")
+
+lenfreqnew3
+
 aaedb_disconnect()
