@@ -50,7 +50,7 @@ flood_data_ba_wide<- flood_data_ba
 #reorganise so in right order when getting bayesian outputs 
 flood_data_ba <- flood_data_ba|>
   mutate(before_after = factor(before_after, levels=(c("before", "after")))) |>
-  mutate(hypoxia_rank = factor(hypoxia_rank, levels=(c("H", "M", "L", "V"))))
+  mutate(hypoxia_rank = factor(hypoxia_rank, levels=(c("L", "M", "H", "V"))))
 
 
 ## but we also need to rescale discharge relative to each waterbody

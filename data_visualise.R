@@ -10,11 +10,12 @@ cpueplot<-flood_data_ba |>
   ggplot(aes(y = cpue, x = hypoxia_rank, fill = before_after)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap( ~ scientific_name, scales = "free")+
-  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
-  labs(x = "Hypoxia Rank", y = "cpue")+
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend", labels=c('Before', 'After'))+
+  labs(x = "Hypoxia Rank", y = "CPUE")+
   theme_bw()+
-  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") 
-  
+  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+         strip.text.y = element_blank(), strip.text.x = element_text( size=12), axis.text.x = element_text(face="bold", size=10),
+         legend.position = "right") 
 
 cpueplot
 
@@ -48,9 +49,12 @@ flood_data_ba$yoy_cpue <- flood_data_ba$yoy / flood_data_ba$effort_h
 yoyplot<-flood_data_ba |> filter(scientific_name %in% c("Cyprinus carpio", "Maccullochella peelii")) |>
   ggplot(aes(y = yoy_cpue , x = hypoxia_rank, fill = before_after)) +
   geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
+  scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend", labels=c('Before', 'After'))+
+  labs(x = "Hypoxia Rank", y = "YOY CPUE")+
   theme_bw()+
-  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
+  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),
+         strip.text.y = element_blank(), strip.text.x = element_text( size=14), axis.text.x = element_text(face="bold",size=10),
+         legend.position = "right") +
   facet_wrap( ~ scientific_name, scales = "free")
 
 yoyplot
@@ -84,6 +88,7 @@ cpueboxplot
 cpuelogboxplot<-ggplot(flood_data_ba, aes(y=log_cpue_p1, x=hypoxia_rank, fill=before_after)) + 
   geom_boxplot() + 
   scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
+  geom_jitter()+
   theme_bw() +
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
   facet_wrap(vars(waterbody), scales = "free")
@@ -95,6 +100,7 @@ cpuelogboxplot
 cpuelogboxplot2<- flood_data_ba |> #filter( hypoxia_rank %in% c("H", "M", "L")) |>
   ggplot(aes(y=log_cpue_p1, x=hypoxia_rank, fill=before_after)) + 
   geom_boxplot() + 
+  #geom_jitter()+
   theme_bw() +
   theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),strip.text.y = element_blank(), legend.position = "right") +
   scale_fill_manual(aesthetics = 'fill', values = c("#4FC3F7", "#E57373"), name="Legend")+
