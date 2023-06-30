@@ -195,18 +195,21 @@ grid.arrange(arrangeGrob(lenfreqmacca+theme(legend.position = "none", strip.text
 ################################################
 ####updated LF charts ####
 
-data_vline <- data.frame(group = unique(flood_sample_data_try$scientific_name),  # Create data for lines
-                         vline = c(NA, NA, NA, NA, NA, NA, 100, 80, NA, NA, NA, NA))
+# data_vline <- data.frame(group = unique(flood_sample_data_try$scientific_name),  # Create data for lines
+#                          vline = c(NA, NA, NA, NA, NA, NA, 100, 80, NA, NA, NA, NA))
+
+flood_sample_data_chart <- flood_sample_data|>
+  filter(scientific_name %in% c("Gadopsis marmoratus", "Macquaria australasica"),
+         hypoxia_rank %in% c("L"))
 
 #length plots for rb and mp with yoy line 
-lenfreq_rb_mp <- flood_sample_data|>
-  filter(scientific_name %in% c("Gadopsis marmoratus", "Macquaria australasica"),
-         hypoxia_rank %in% c("L")) |>
-  ggplot(aes(x=length_mm))+
+lenfreq_rb_mp <- ggplot(flood_sample_data_chart, aes(x=length_mm))+
   scale_fill_brewer(palette = "Set2", name= "Legend", labels=c('Before', 'After'))+
   scale_y_continuous(name="Number of Fish") +
-  scale_x_continuous(name="Total Length (mm)") +  
-  geom_vline(data=data_vline, aes(xintercept=vline),linetype="dashed", color = "black", size=1)+
+  scale_x_continuous(name="Total Length (mm)") +
+  geom_vline(data=filter(flood_sample_data_chart, scientific_name =="Gadopsis marmoratus"), aes(xintercept=80),linetype="dashed", color = "black", size=1) +
+  geom_vline(data=filter(flood_sample_data_chart, scientific_name =="Macquaria australasica"), aes(xintercept=100),linetype="dashed", color = "black", size=1) +
+  # geom_vline(data=data_vline, aes(xintercept=vline),linetype="dashed", color = "black", size=1)+
   geom_histogram(aes(y=..count.., fill=before_after), binwidth=20, boundary=0, closed="left",color='black', position="dodge")+
   #geom_density(aes(y=..density.., fill=before_after), alpha=0.7, lwd=0.8)+
   theme_bw()+
