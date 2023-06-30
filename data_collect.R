@@ -55,6 +55,8 @@ populate_recruit_data <- function(flood_data_table, recruit_table){
 ##==========================================================================================================================================
 ##==========================================================================================================================================
 
+aaedb_key_set()
+
 # find sites fished this year (2023) and their previous fished year (only VEFMAP for now)
 site.ba_years <- fetch_query(
   "SELECT id_site, site_name, waterbody, id_project, yr, sdate, rank
